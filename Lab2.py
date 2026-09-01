@@ -1,6 +1,6 @@
 # Lab2.py
 import streamlit as st
-
+from openai import OpenAI
 st.title("Lab 2")
 # Show title and description.
 st.write(
@@ -14,27 +14,30 @@ st.write(
 OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 
     # Create an OpenAI client.
-openai_api_key = st.secrets["OPENAI_API_KEY"].strip()
+oopenai_api_key = st.secrets["OPENAI_API_KEY"]
 
 try:
-    client = OpenAI(api_key=openai_api_key)
+    client = OpenAI(
+        api_key=st.secrets["OPENAI_API_KEY"]
+    )
     client.models.list()
 except Exception as error:
     st.error(f"{type(error).__name__}: {error}")
     st.stop()
-    # Let the user upload a file via `st.file_uploader`.
-    uploaded_file = st.file_uploader(
-        "Upload a document (.txt or .md)", type=("txt", "md")
-    )
 
+# This must be outside the except block.
+uploaded_file = st.file_uploader(
+    "Upload a document (.txt or .md)",
+    type=("txt", "md"),
+)
     # Ask the user for a question via `st.text_area`.
-    question = st.text_area(
+question = st.text_area(
         "Now ask a question about the document!",
         placeholder="Can you give me a short summary?",
         disabled=not uploaded_file,
     )
 
-    if uploaded_file and question:
+if uploaded_file and question:
 
         # Process the uploaded file and question.
         document = uploaded_file.read().decode()
