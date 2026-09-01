@@ -17,8 +17,12 @@ if not openai_api_key:
 else:
 
     # Create an OpenAI client.
-    client = OpenAI(api_key=openai_api_key)
-
+    try:
+        client = OpenAI(api_key=openai_api_key)
+        client.models.list()
+    except Exception:
+        st.error("Invalid OpenAI Key. Please enter a valid key")
+        st.stop()
     # Let the user upload a file via `st.file_uploader`.
     uploaded_file = st.file_uploader(
         "Upload a document (.txt or .md)", type=("txt", "md")
@@ -44,7 +48,7 @@ else:
 
         # Generate an answer using the OpenAI API.
         stream = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-5-nano",
             messages=messages,
             stream=True,
         )
