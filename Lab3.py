@@ -4,6 +4,17 @@ from openai import OpenAI
 
 st.title("Lab 3: Streaming Chatbot with Memory")
 
+system_message = {
+    "role": "system",
+    "content": (
+        "You are a helpful question-answering chatbot. Explain every answer "
+        "in simple language that a 10-year-old can understand. When the user "
+        "asks a new question, answer it and end with exactly: Do you want more "
+        "info? If the user answers yes, provide more information about the "
+        "same topic and end with exactly: Do you want more info? If the user "
+        "answers no, reply with exactly: How can I help you?"
+    ),
+}
 if "client" not in st.session_state:
     api_key = st.secrets["OPENAI_API_KEY"]
     st.session_state.client = OpenAI(api_key=api_key)
@@ -13,7 +24,6 @@ if "messages" not in st.session_state:
         {"role": "assistant", "content": "How can I help you?"}
     ]
 
-# Display the conversation.
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.write(message["content"])
@@ -27,7 +37,6 @@ if prompt := st.chat_input("Type your message here"):
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    # Keep the last two user messages and their assistant responses.
     user_message_indexes = [
         index
         for index, message in enumerate(st.session_state.messages)
@@ -41,12 +50,13 @@ if prompt := st.chat_input("Type your message here"):
     )
 
     conversation_buffer = st.session_state.messages[buffer_start:]
+    messages_for_model = [system_message] + conversation_buffer
 
     # Stream the answer from OpenAI.
     client = st.session_state.client
     stream = client.chat.completions.create(
         model="gpt-5-nano",
-        messages=conversation_buffer,
+        messages=messages_for_model,
         stream=True,
     )
 
