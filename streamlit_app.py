@@ -18,6 +18,11 @@ lab3 = st.Page(
     title="Lab 3",
     icon="3️⃣",
 )
+lab4 = st.Page(
+    "Lab4.py",
+    title="Lab 4",
+    icon="4️⃣",
+)
 
-selected_page = st.navigation([lab1, lab2, lab3])
+selected_page = st.navigation([lab1, lab2, lab3, lab4])
 selected_page.run()
