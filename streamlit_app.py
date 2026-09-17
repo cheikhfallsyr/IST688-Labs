@@ -22,6 +22,7 @@ lab4 = st.Page(
     "Lab4.py",
     title="Lab 4",
     icon="4️⃣",
+    default=True,
 )
 
 selected_page = st.navigation([lab1, lab2, lab3, lab4])
