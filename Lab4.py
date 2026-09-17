@@ -106,7 +106,7 @@ if "Lab4_VectorDB" not in st.session_state:
         "Creating the course vector database..."
     ):
         create_vector_database()
-
+st.write(st.session_state.Lab4_VectorDB.get()["ids"])
 
 #### MAIN APP ####
 
