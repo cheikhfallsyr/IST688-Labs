@@ -10,7 +10,6 @@ lab2 = st.Page(
     "Lab2.py",
     title="Lab 2",
     icon="2️⃣",
-    default=True,
 )
 
 lab3 = st.Page(
