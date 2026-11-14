@@ -28,6 +28,12 @@ lab5 = st.Page(
     icon="5️⃣",
     default=True
 )
+lab6 = st.Page(
+    "Lab6.py",
+    title="Lab 6",
+    icon="6️⃣",
+)
+lab8 = st.Page("LabRerank.py", title="Lab 8: RAG and Re-ranking")
 
-selected_page = st.navigation([lab1, lab2, lab3, lab4, lab5])
+selected_page = st.navigation([lab1, lab2, lab3, lab4, lab5, lab6, lab8])
 selected_page.run()
