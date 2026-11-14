@@ -14,11 +14,6 @@ re-ranker, which can't retrieve anything new. With 100 candidates, it has a
 better chance of receiving useful evidence, but must score more pairs, adding
 latency. More candidates don't guarantee better final rankings.
 
-Step 13: Requires a live comparison with your OpenAI key. Record the claim,
-both verdicts and their cited abstracts here after using Compare answers.
-Check which verdict is justified by the actual abstracts, not just the green
-ticks: the answer key lists relevant papers, not support/refutation labels.
-Re-ranking measures relevance; evidence that refutes a claim is still useful.
 """
 
 import json
